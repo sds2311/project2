@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Wrap</title>
+    <link rel="stylesheet" href="bubble.css">
+  </head>
+  <body>
+    <h1>Bubble Wrap Popper</h1>
+    <div class="bubble-wrap-container">
+    <div class="row">
+        <div class="column">
+            <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+            <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+            <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+            <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+        </div>
+        <div class="column">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+        </div>
+        <div class="column">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+        </div>
+        <div class="column">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+        </div>
+    </div>
+  </div>
+  <button class="fill" onclick="reFill()">Re-Fill</button>
+  <img id="blowingCursor" src="imagesBubble/blowingImage.png" alt="Blowing cursor">
+    <script>
+      let blowingMode = false;
+      const blowingCursor = document.getElementById('blowingCursor');
+      function popTime(element) 
+      {
+        if (element.src.includes("imagesBubble/unPop.png")) 
+        {
+          element.src = "imagesBubble/Pop.png";
+          element.alt = "Popped";
+          new Audio('finalBubbleWrap.mp3').play();
+        }
+      }
+      function handleMouseMove(event) 
+      {
+        blowingCursor.style.left = event.x + 'px';
+        blowingCursor.style.top = event.y + 'px';
+    
+        if (blowingMode) 
+        {
+          const Under = document.elementFromPoint(event.x, event.y);
+          if (Under && Under.classList.contains('bubble') && Under.src.includes('Pop.png')) 
+            {
+                Under.src = 'imagesBubble/unPop.png';
+                Under.alt = 'Unpopped';
+            }
+        }
+      }
+      function reFill()
+      {
+        blowingMode = !blowingMode;
+        if (blowingMode) 
+        {
+          blowingCursor.style.display = 'block';
+        } 
+        else 
+        {
+          blowingCursor.style.display = 'none';
+        }
+      }
+      document.addEventListener('mousemove', handleMouseMove);
+    </script>
+  </body>
+</html>
