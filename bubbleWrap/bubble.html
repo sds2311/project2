@@ -35,10 +35,40 @@
           <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
           <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
         </div>
+        <div class="column">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+        </div>
+        <div class="column">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+        </div>
+        <div class="column">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+        </div>
+        <div class="column">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+          <img class="bubble" src="imagesBubble/unPop.png" alt="Unpopped" onclick="popTime(this)">
+        </div>
     </div>
   </div>
-  <button class="fill" onclick="reFill()">Re-Fill</button>
-  <img id="blowingCursor" src="imagesBubble/blowingImage.png" alt="Blowing cursor">
+  <div class="button-container">
+    <button class="fill" onclick="reFill()">Re-Fill</button>
+    <button class="fill" onclick="allFill()">Refresh</button>
+  </div>
+  <button class="music top-left" onclick="toggleMusic()"></button>
+  <img id="blowingCursor" src="imagesBubble/bubbleBlower.png" alt="Blowing cursor">
+  <audio id="backgroundMusic" src="sounds/cozyMusic.mp3" preload="auto" loop></audio>
+  <audio id="blowing" src="sounds/wind-blowing.mp3" preload="auto" loop></audio>
     <script>
       let blowingMode = false;
       const blowingCursor = document.getElementById('blowingCursor');
@@ -48,7 +78,7 @@
         {
           element.src = "imagesBubble/Pop.png";
           element.alt = "Popped";
-          new Audio('finalBubbleWrap.mp3').play();
+          new Audio('sounds/finalBubbleWrap.mp3').play();
         }
       }
       function handleMouseMove(event) 
@@ -66,8 +96,10 @@
             }
         }
       }
+      let blow = false;
       function reFill()
       {
+        let music2 = document.getElementById("blowing");
         blowingMode = !blowingMode;
         if (blowingMode) 
         {
@@ -77,7 +109,42 @@
         {
           blowingCursor.style.display = 'none';
         }
+        if(blow)
+        {
+          music2.pause();
+        }
+        else
+        {
+          music2.volume = 0.05;
+          music2.play();
+        }
+        blow = !blow;
       }
+      function allFill()
+      {
+        const bubbles = document.querySelectorAll('.bubble');
+        bubbles.forEach(bubble => {
+          bubble.src = 'imagesBubble/unPop.png';
+          bubble.alt = 'Unpopped';
+        });
+      }
+      let musicPlay = false;
+      function toggleMusic() {
+        let music = document.getElementById("backgroundMusic");
+        let button = document.querySelector(".music");
+        music.volume = 0.2;
+        if(musicPlay)
+        {
+          music.pause();
+          button.style.backgroundImage = "url('imagesBubble/play.png')";
+        }
+        else
+        {
+          music.play();
+          button.style.backgroundImage = "url('imagesBubble/pause.png')";
+        }
+        musicPlay = !musicPlay;
+    }
       document.addEventListener('mousemove', handleMouseMove);
     </script>
   </body>
